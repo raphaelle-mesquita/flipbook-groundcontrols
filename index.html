@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Flipbook - Aphia Style</title>
+  <title>Flipbook - Aphia Studio</title>
   <style>
     body {
       background: #f5f5f5;
@@ -23,35 +23,40 @@
       background: white;
       color: #333;
       padding: 20px;
-      font-family: sans-serif;
-      font-size: 20px;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 22px;
       border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 </head>
 <body>
 
-<div id="flipbook">
-  <div class="page">Hello 🌿 Aphia Studio</div>
-  <div class="page">Essa é a página 2</div>
-  <div class="page">Mais uma viradinha de página 🌀</div>
-  <div class="page">Fim! 🫶</div>
-</div>
+  <div id="flipbook">
+    <div class="page">🌿 Bem-vinda ao Flipbook da Aphia Studio</div>
+    <div class="page">✨ Aqui você pode mostrar projetos, ideias e muito mais!</div>
+    <div class="page">🌀 Flip suave powered by Turn.js</div>
+    <div class="page">🚀 Bora criar experiências incríveis juntas!</div>
+  </div>
 
-<!-- jQuery precisa vir antes -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Turn.js (você pode trocar esse path pelo seu local se preferir) -->
-<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
+  <!-- jQuery primeiro -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Turn.js (link correto dentro da pasta js/) -->
+  <script src="js/turn.min.js"></script>
 
-<script>
-  $(document).ready(function() {
-    $('#flipbook').turn({
-      width: 600,
-      height: 400,
-      autoCenter: true
+  <!-- Inicialização do flipbook -->
+  <script>
+    $(document).ready(function () {
+      $('#flipbook').turn({
+        width: 600,
+        height: 400,
+        autoCenter: true
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
