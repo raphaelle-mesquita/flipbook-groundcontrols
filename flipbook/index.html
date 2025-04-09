@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flipbook - Aphia Studio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    body {
+      background: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    #flipbook {
+      width: 600px;
+      height: 400px;
+    }
+
+    .page {
+      background: white;
+      color: #333;
+      padding: 20px;
+      font-size: 20px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="flipbook">
+    <div class="page">🌿 Hello! Bem-vinda ao flipbook da <strong>Aphia Studio</strong></div>
+    <div class="page">✨ Aqui você pode mostrar seu portfólio interativo</div>
+    <div class="page">📄 Cada página pode conter texto, imagens, ou até HTML</div>
+    <div class="page">🚀 Bora fazer esse design brilhar no Vercel!</div>
+  </div>
+
+  <!-- jQuery deve vir primeiro -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Turn.js com o caminho certo -->
+  <script src="js/turn.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#flipbook').turn({
+        width: 600,
+        height: 400,
+        autoCenter: true
+      });
+    });
+  </script>
+
+</body>
+</html>
