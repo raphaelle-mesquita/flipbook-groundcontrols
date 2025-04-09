@@ -1,6 +1,68 @@
-<div id="flipbook-wrapper">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flipbook Quadrado Profissional</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #111;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #flipbook {
+      width: 2400px; /* duas páginas de 1200 */
+      height: 1200px;
+      overflow: hidden;
+    }
+
+    #flipbook .page {
+      width: 1200px;
+      height: 1200px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: white;
+    }
+
+    .flipbook-nav {
+      margin-top: 1rem;
+    }
+
+    .flipbook-nav button {
+      background: #000;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .flipbook-nav button:hover {
+      background: #333;
+    }
+
+    @media (max-width: 1300px) {
+      #flipbook {
+        transform: scale(0.5);
+        transform-origin: top center;
+      }
+    }
+  </style>
+</head>
+<body>
+
   <div id="flipbook">
+    <!-- CAPA (sozinha, lado direito) -->
     <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53c5dca86ded4c3be7167_AF_21X21CM_GROUNDCONTROLS_page-0001.jpg');"></div>
+    
+    <!-- PÁGINAS EM DUPLA -->
     <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53ca379802f2b4121a2b6_AF_21X21CM_GROUNDCONTROLS_page-0002.jpg');"></div>
     <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc430931cf798a924bc_AF_21X21CM_GROUNDCONTROLS_page-0003.jpg');"></div>
     <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc486b1ffc127f1d5a0_AF_21X21CM_GROUNDCONTROLS_page-0004.jpg');"></div>
@@ -17,90 +79,41 @@
     <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc46b8b7d478d012809_AF_21X21CM_GROUNDCONTROLS_page-0015.jpg');"></div>
     <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4666244b9f370eaec_AF_21X21CM_GROUNDCONTROLS_page-0016.jpg');"></div>
   </div>
+
   <div class="flipbook-nav">
     <button onclick="$('#flipbook').turn('previous')">⬅</button>
     <button onclick="$('#flipbook').turn('next')">➡</button>
   </div>
-</div>
 
-<style>
-  #flipbook-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem;
-  }
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@4/turn.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      const flipbook = $('#flipbook');
 
-  #flipbook {
-    width: 100%;
-    max-width: 800px;
-    height: 500px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
-    overflow: hidden;
-  }
+      flipbook.turn({
+        width: 2400,
+        height: 1200,
+        autoCenter: true,
+        display: 'double', // padrão, mas reforçado
+        elevation: 0,
+        gradients: false
+      });
 
-  #flipbook .page {
-    width: 400px;
-    height: 500px;
-    background-color: white;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.3s ease-in-out;
-    cursor: zoom-in;
-  }
-
-  .flipbook-nav {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-  }
-
-  .flipbook-nav button {
-    background: #000;
-    color: #fff;
-    padding: 0.5rem 1.2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-
-  .flipbook-nav button:hover {
-    background: #333;
-  }
-
-  @media (max-width: 768px) {
-    #flipbook {
-      transform: scale(0.8);
-      transform-origin: top center;
-    }
-  }
-
-  @media (max-width: 480px) {
-    #flipbook {
-      transform: scale(0.65);
-    }
-  }
-</style>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@4/turn.min.js"></script>
-<script>
-  $('#flipbook').turn({
-    width: 800,
-    height: 500,
-    autoCenter: true
-  });
-
-  // zoom simples no clique duplo (pode adaptar depois com pinch etc.)
-  $('.page').on('dblclick', function () {
-    $(this).toggleClass('zoomed');
-    if ($(this).hasClass('zoomed')) {
-      $(this).css('transform', 'scale(1.5)');
-    } else {
-      $(this).css('transform', 'scale(1)');
-    }
-  });
-</script>
+      // TEASER: vira 4 páginas e volta ao início
+      let teaserPage = 1;
+      const teaserInterval = setInterval(() => {
+        teaserPage++;
+        if (teaserPage <= 4) {
+          flipbook.turn('next');
+        } else {
+          clearInterval(teaserInterval);
+          setTimeout(() => {
+            flipbook.turn('page', 1);
+          }, 1000);
+        }
+      }, 900); // virar mais rapidinho
+    });
+  </script>
+</body>
+</html>
