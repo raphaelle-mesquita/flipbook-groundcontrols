@@ -1,124 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flipbook Ground Controls</title>
-    <style>
-      body {
-        margin: 0;
-        background-color: #111;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        font-family: sans-serif;
+<div id="flipbook-wrapper">
+  <div id="flipbook">
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53c5dca86ded4c3be7167_AF_21X21CM_GROUNDCONTROLS_page-0001.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53ca379802f2b4121a2b6_AF_21X21CM_GROUNDCONTROLS_page-0002.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc430931cf798a924bc_AF_21X21CM_GROUNDCONTROLS_page-0003.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc486b1ffc127f1d5a0_AF_21X21CM_GROUNDCONTROLS_page-0004.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4617b1de406a795c7_AF_21X21CM_GROUNDCONTROLS_page-0005.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc470abb07fc61adf64_AF_21X21CM_GROUNDCONTROLS_page-0006.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4d420a7d9a22a7850_AF_21X21CM_GROUNDCONTROLS_page-0007.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc48e18400201e5124f_AF_21X21CM_GROUNDCONTROLS_page-0008.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc484db97cb6083d8ae_AF_21X21CM_GROUNDCONTROLS_page-0009.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4a09a638ced774c6d_AF_21X21CM_GROUNDCONTROLS_page-0010.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc472ce568be02499fd_AF_21X21CM_GROUNDCONTROLS_page-0011.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4641c5ed7b9480539_AF_21X21CM_GROUNDCONTROLS_page-0012.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc47eb5626c3aff31c0_AF_21X21CM_GROUNDCONTROLS_page-0013.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc48f4c7275889f473d_AF_21X21CM_GROUNDCONTROLS_page-0014.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc46b8b7d478d012809_AF_21X21CM_GROUNDCONTROLS_page-0015.jpg');"></div>
+    <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4666244b9f370eaec_AF_21X21CM_GROUNDCONTROLS_page-0016.jpg');"></div>
+  </div>
+</div>
+
+<style>
+  #flipbook-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  #flipbook {
+    width: 800px;
+    height: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  #flipbook .page {
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@4/turn.min.js"></script>
+<script>
+  Webflow.push(function () {
+    const flip = $('#flipbook');
+
+    flip.turn({
+      width: 800,
+      height: 500,
+      autoCenter: true
+    });
+
+    // Efeito teaser automático: vira 3 páginas, depois volta pro início
+    let teaserCount = 0;
+    const maxTeaser = 3;
+
+    const flipTeaser = setInterval(() => {
+      teaserCount++;
+      flip.turn('next');
+
+      if (teaserCount >= maxTeaser) {
+        clearInterval(flipTeaser);
+        setTimeout(() => {
+          flip.turn('page', 1); // volta pro início
+        }, 1500);
       }
-
-      .flipbook-container {
-        width: 100%;
-        max-width: 1000px;
-        aspect-ratio: 2 / 1;
-        margin: auto;
-        position: relative;
-      }
-
-      #flipbook {
-        width: 100%;
-        height: 100%;
-      }
-
-      .page {
-        width: 500px;
-        height: 500px;
-        background-color: #fff;
-        background-size: cover;
-        background-position: center;
-      }
-
-      .nav {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 20px;
-      }
-
-      .nav button {
-        background: #000;
-        color: #fff;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-      }
-
-      @media (max-width: 768px) {
-        .flipbook-container {
-          aspect-ratio: 1 / 1;
-        }
-        .page {
-          width: 100%;
-          height: 100%;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="flipbook-container">
-      <div id="flipbook">
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53c5dca86ded4c3be7167_AF_21X21CM_GROUNDCONTROLS_page-0001.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53ca379802f2b4121a2b6_AF_21X21CM_GROUNDCONTROLS_page-0002.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc430931cf798a924bc_AF_21X21CM_GROUNDCONTROLS_page-0003.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc486b1ffc127f1d5a0_AF_21X21CM_GROUNDCONTROLS_page-0004.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4617b1de406a795c7_AF_21X21CM_GROUNDCONTROLS_page-0005.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc470abb07fc61adf64_AF_21X21CM_GROUNDCONTROLS_page-0006.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4d420a7d9a22a7850_AF_21X21CM_GROUNDCONTROLS_page-0007.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc48e18400201e5124f_AF_21X21CM_GROUNDCONTROLS_page-0008.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc484db97cb6083d8ae_AF_21X21CM_GROUNDCONTROLS_page-0009.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4a09a638ced774c6d_AF_21X21CM_GROUNDCONTROLS_page-0010.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc472ce568be02499fd_AF_21X21CM_GROUNDCONTROLS_page-0011.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4641c5ed7b9480539_AF_21X21CM_GROUNDCONTROLS_page-0012.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc47eb5626c3aff31c0_AF_21X21CM_GROUNDCONTROLS_page-0013.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc48f4c7275889f473d_AF_21X21CM_GROUNDCONTROLS_page-0014.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc46b8b7d478d012809_AF_21X21CM_GROUNDCONTROLS_page-0015.jpg');"></div>
-        <div class="page" style="background-image: url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc4666244b9f370eaec_AF_21X21CM_GROUNDCONTROLS_page-0016.jpg');"></div>
-      </div>
-      <div class="nav">
-        <button id="prev">⬅</button>
-        <button id="next">➡</button>
-      </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/turn.js@4/turn.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $('#flipbook').turn({
-          width: 1000,
-          height: 500,
-          autoCenter: true,
-          display: 'double',
-          acceleration: true
-        });
-
-        $('#prev').click(() => $('#flipbook').turn('previous'));
-        $('#next').click(() => $('#flipbook').turn('next'));
-
-        let teaserPage = 1;
-        const maxTeaserPages = 4;
-        const teaser = setInterval(() => {
-          teaserPage++;
-          if (teaserPage <= maxTeaserPages) {
-            $('#flipbook').turn('next');
-          } else {
-            clearInterval(teaser);
-            setTimeout(() => $('#flipbook').turn('page', 1), 1000);
-          }
-        }, 1000);
-      });
-    </script>
-  </body>
-</html>
-
+    }, 1800);
+  });
+</script>
