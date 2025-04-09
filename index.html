@@ -1,0 +1,105 @@
+<style>
+  #flipbook-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  #flipbook {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  #flipbook .page {
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease-in-out;
+    cursor: zoom-in;
+  }
+
+  .flipbook-nav {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .flipbook-nav button {
+    background: #000;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .flipbook-nav button:hover {
+    background: #333;
+  }
+
+  @media (max-width: 768px) {
+    #flipbook {
+      transform: scale(0.8);
+      transform-origin: top center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #flipbook {
+      transform: scale(0.65);
+    }
+  }
+</style>
+
+<div id="flipbook-wrapper">
+  <div id="flipbook">
+    <div class="page" style="background-image:url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53c5dca86ded4c3be7167_AF_21X21CM_GROUNDCONTROLS_page-0001.jpg');"></div>
+    <div class="page" style="background-image:url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53ca379802f2b4121a2b6_AF_21X21CM_GROUNDCONTROLS_page-0002.jpg');"></div>
+    <div class="page" style="background-image:url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc430931cf798a924bc_AF_21X21CM_GROUNDCONTROLS_page-0003.jpg');"></div>
+    <div class="page" style="background-image:url('https://cdn.prod.website-files.com/6706398dc0521531a57c7a75/67f53cc486b1ffc127f1d5a0_AF_21X21CM_GROUNDCONTROLS_page-0004.jpg');"></div>
+    <!-- Continue com as outras páginas -->
+  </div>
+
+  <div class="flipbook-nav">
+    <button id="prev">⬅</button>
+    <button id="next">➡</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      if (typeof jQuery !== "undefined" && typeof jQuery.fn.turn === "function") {
+        $('#flipbook').turn({
+          width: 800,
+          height: 500,
+          autoCenter: true
+        });
+
+        $('#prev').on('click', function () {
+          $('#flipbook').turn('previous');
+        });
+
+        $('#next').on('click', function () {
+          $('#flipbook').turn('next');
+        });
+
+        $('.page').on('dblclick', function () {
+          $(this).toggleClass('zoomed');
+          $(this).css('transform', $(this).hasClass('zoomed') ? 'scale(1.5)' : 'scale(1)');
+        });
+      } else {
+        console.error("❌ jQuery ou turn.js não carregaram.");
+      }
+    }, 500);
+  });
+</script>
