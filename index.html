@@ -38,9 +38,13 @@
   <div class="page">Fim! 🫶</div>
 </div>
 
-<script src="js/turn.min.js"></script>
+<!-- jQuery precisa vir antes -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Turn.js (você pode trocar esse path pelo seu local se preferir) -->
+<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
+
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  $(document).ready(function() {
     $('#flipbook').turn({
       width: 600,
       height: 400,
@@ -48,7 +52,6 @@
     });
   });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 </html>
