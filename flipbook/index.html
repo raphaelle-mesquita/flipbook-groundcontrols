@@ -1,62 +1,55 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Flipbook - Aphia Studio</title>
+  <title>Flipbook Example</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@4/turn.min.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      background: #f3f3f3;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
     }
 
-    #flipbook {
-      width: 600px;
-      height: 400px;
+    .flipbook {
+      width: 800px;
+      height: 500px;
     }
 
-    .page {
+    .flipbook .page {
       background: white;
-      color: #333;
-      padding: 20px;
-      font-size: 20px;
+      background-size: cover;
+      background-position: center;
+      width: 400px;
+      height: 500px;
       border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
 
-  <div id="flipbook">
-    <div class="page">🌿 Hello! Bem-vinda ao flipbook da <strong>Aphia Studio</strong></div>
-    <div class="page">✨ Aqui você pode mostrar seu portfólio interativo</div>
-    <div class="page">📄 Cada página pode conter texto, imagens, ou até HTML</div>
-    <div class="page">🚀 Bora fazer esse design brilhar no Vercel!</div>
+  <div class="flipbook">
+    <div class="page" style="background-image: url('https://via.placeholder.com/400x500/FFC0CB/000000?text=Page+1');"></div>
+    <div class="page" style="background-image: url('https://via.placeholder.com/400x500/87CEEB/000000?text=Page+2');"></div>
+    <div class="page" style="background-image: url('https://via.placeholder.com/400x500/98FB98/000000?text=Page+3');"></div>
+    <div class="page" style="background-image: url('https://via.placeholder.com/400x500/FFFFE0/000000?text=Page+4');"></div>
   </div>
 
-  <!-- jQuery deve vir primeiro -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- Turn.js com o caminho certo -->
-  <script src="js/turn.min.js"></script>
-
   <script>
-    $(document).ready(function () {
-      $('#flipbook').turn({
-        width: 600,
-        height: 400,
+    $(document).ready(function(){
+      $(".flipbook").turn({
+        width: 800,
+        height: 500,
         autoCenter: true
       });
     });
   </script>
-
 </body>
 </html>
